@@ -1,0 +1,78 @@
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 15px;
+  padding-top: 10px;
+  background: lightgray;
+}
+
+.otherLinksDiv {
+  background-color: #2f3640;
+  color: #fff;
+  position: absolute;
+  top: 0;
+  right: 0;
+  z-index: 1;
+  height: 100vh;
+  width: 200px;
+  overflow: hidden;
+  transition: 0.5s;
+}
+.otherLinksDiv a {
+  display: block;
+  margin-top: 10px;
+  padding: 10px 20px;
+}
+.inputAndOthersSect {
+  flex-basis: 60%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.searchBtnDiv {
+  backround: red;
+  flex-basis: 20%;
+}
+
+.linksSect {
+  flex-basis: 40%;
+}
+.totalQuantityDiv {
+  background: red;
+  position: absolute;
+  top: 5px;
+  right: -8px;
+  border-radius: 50%;
+  text-align: center;
+  width: 20px;
+  height: 20px;
+  font-size: small;
+}
+.loginCartMenuDiv {
+  display: flex;
+  justify-content: space-between;
+  flex-basis: 75%;
+  bkgound: turquoise;
+}
+.cartAndQuantity {
+  position: relative;
+}
+.cancelIconDiv {
+  display: flex;
+  justify-content: end;
+  padding-right: 10px;
+}
+.closedMenu {
+  width: 0;
+}
+.logoutDiv {
+  padding: 10px 20px;
+}
+.logout {
+  margin-top: 5px;
+  padding: 0;
+  font-size: 18px;
+  background: transparent;
+  cursor: pointer;
+}
