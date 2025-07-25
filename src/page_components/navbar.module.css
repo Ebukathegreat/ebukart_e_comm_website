@@ -53,7 +53,7 @@
   display: flex;
   justify-content: space-between;
   flex-basis: 75%;
-  background: yellow;
+  background: gainsboro;
 }
 .cartAndQuantity {
   position: relative;
