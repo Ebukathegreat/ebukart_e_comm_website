@@ -53,7 +53,7 @@
   display: flex;
   justify-content: space-between;
   flex-basis: 75%;
-  bk: turquoise;
+  background: slateblue;
 }
 .cartAndQuantity {
   position: relative;
