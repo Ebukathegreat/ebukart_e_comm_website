@@ -8,6 +8,7 @@ import { UserProvider } from "@/page_components/UserProvider";
 import { supabaseBrowser } from "@/lib/supabase/client";
 import { Toaster } from "sonner";
 import BackendBanner from "@/page_components/BackendBanner";
+import "/public/fontawesomeicons/css/all.css";
 
 export default function RootLayout({
   children,
@@ -56,10 +57,6 @@ export default function RootLayout({
 
   return (
     <html lang="en">
-      <head>
-        {/* Load Offline Font Awesome (from public folder) */}
-        <link rel="stylesheet" href="/fontawesomeicons/css/all.css" />
-      </head>
       <body>
         <BackendBanner /> {/*  shows only if Supabase is offline */}
         {/* Wrap entire app in UserProvider so we can access `user` on any page */}

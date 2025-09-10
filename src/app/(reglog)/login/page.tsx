@@ -48,7 +48,7 @@ export default function LoginPage() {
       }
     }
     logoutAndRedirect();
-  }, [searchParams, router]);
+  }, [searchParams, router, supabase]);
 
   //  This checks if login was successful
   useEffect(() => {
@@ -58,7 +58,7 @@ export default function LoginPage() {
       // router.refresh();
       window.location.href = state.redirectTo; // Makes sure that Dashboard button shows instead of login button
     }
-  }, [state]);
+  }, [state, user]);
 
   return (
     <div className="px-4 my-5  md:max-w-[700px] mx-auto">

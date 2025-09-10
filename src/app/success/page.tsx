@@ -59,7 +59,7 @@ export default function SuccessPage() {
       setSaving(false);
     };
     saveOrderToSupabase();
-  }, [hasHydrated]);
+  }, [hasHydrated, clearCart, products]);
 
   return (
     <div className="min-h-screen bg-black md:flex md:items-center md:justify-center px-4">

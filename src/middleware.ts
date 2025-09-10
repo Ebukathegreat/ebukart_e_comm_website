@@ -9,9 +9,6 @@ const redirectIfLoggedInRoutes = ["/login", "/register"];
 export async function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl;
 
-  // Extract cookies from the incoming request headers
-  const cookieHeader = request.headers.get("cookie") || "";
-
   // Create Supabase client with cookie header for auth state
   const supabase = supabaseServer();
 

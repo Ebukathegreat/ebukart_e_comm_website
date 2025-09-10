@@ -24,7 +24,7 @@ export default function ChangePasswordPage() {
 
       return () => clearTimeout(timer);
     }
-  }, [state]);
+  }, [state, router]);
 
   return (
     <div className="min-h-[90vh] mt-6 md:flex md:justify-center md:items-center md:mt-0 bg-black px-4">
