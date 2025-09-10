@@ -1,0 +1,29 @@
+.dedupliCategCardsUl {
+  padding-top: 10px;
+}
+
+.dedupliCategCardsUl li {
+  margin-bottom: 40px;
+}
+
+.btnLinkDiv {
+  text-align: center;
+  padding: 0 16px;
+  margin-bottom: 30px;
+}
+
+/********************************** LARGE SCREENS **************************************/
+
+@media all and (min-width: 600px) {
+  .dedupliCategCardsUl {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, 430px); /* fixed 430px cards */
+    justify-content: center; /* center whole grid */
+    margin-top: 10px;
+  }
+
+  .dedupliCategCardsUl > li {
+    idth: 330px; /* exact width so no compression */
+    margin-bottom: 20px;
+  }
+}

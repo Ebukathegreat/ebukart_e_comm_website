@@ -1,0 +1,46 @@
+.iconsDiv {
+  display: flex;
+  color: #16a34a;
+}
+
+.iconsDiv > svg {
+  margin-right: 5px;
+}
+
+.iconsDiv i {
+  width: 20px;
+  height: 20px;
+  margin-top: 2px;
+}
+
+.cardDiv {
+  width: 85%;
+  margin-top: 20px;
+  height: 680px;
+}
+.card {
+  box-shadow: inset 0px 0px 40px 80px rgba(0, 0, 0, 0.2);
+  border-top-right-radius: 40px;
+  border-top-left-radius: 40px;
+  overflow: hidden;
+  border-bottom-right-radius: 0;
+  border-bottom-left-radius: 0;
+  padding-top: 0;
+}
+.card img {
+  border-top-right-radius: 40px;
+  border-top-left-radius: 40px;
+  width: 100%;
+}
+
+/********************************** LARGE SCREENS **************************************/
+
+@media all and (min-width: 600px) {
+  .cardDiv {
+    width: 30%;
+    height: 480px;
+  }
+  .card {
+    height: 420px;
+  }
+}

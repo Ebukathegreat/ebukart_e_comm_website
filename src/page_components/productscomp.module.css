@@ -1,0 +1,30 @@
+.filterInpDiv {
+  width: 65%;
+  background: rgb(75, 73, 73);
+  margin: 0 auto;
+  border-radius: 20px;
+}
+.filterInpDiv input {
+  outline: none;
+  border: none;
+  padding: 10px;
+  color: white;
+  font-weight: 600;
+  width: 100%;
+}
+.filterInpDiv input::placeholder {
+  font-size: 11px;
+  color: wheat;
+}
+
+/********************************** LARGE SCREENS **************************************/
+@media all and (min-width: 600px) {
+  .productsListDiv {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, 430px);
+    justify-content: center;
+  }
+  .filterInpDiv input::placeholder {
+    font-size: 13px;
+  }
+}

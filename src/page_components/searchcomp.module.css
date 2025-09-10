@@ -1,0 +1,13 @@
+.searchCompCardLinkDiv {
+  padding: 0 24px;
+}
+
+/********************************** LARGE SCREENS **************************************/
+@media all and (min-width: 600px) {
+  .searchCompCardLinkDiv {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, 400px); /* fixed 400px cards */
+    gap: 50px;
+    justify-content: center; /* center whole grid */
+  }
+}

@@ -1,0 +1,18 @@
+.list {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 15px;
+  border-bottom: 1px solid gray;
+  padding-bottom: 10px;
+}
+
+.list button {
+  height: 35px;
+  width: 35px;
+}
+.card {
+  background: transparent;
+  padding: 15px 20px;
+  box-shadow: 0px 0px 40px 80px rgba(0, 0, 0, 0.2);
+}

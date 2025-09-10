@@ -1,0 +1,79 @@
+.homeDiv {
+  paddig-bottom: 30px;
+}
+.welcome_LogoDiv {
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+  padding: 10px 0;
+}
+.welcome {
+  font-weight: bold;
+  font-size: 27px;
+  color: #22c55e;
+}
+.ebukartLogoDiv {
+  position: relative;
+  width: 144px;
+  height: 44px;
+}
+.discover {
+  color: white;
+  margin: 0 auto;
+  margin-bottom: 10px;
+  text-align: center;
+  width: 70%;
+}
+.browseAllBtnLinkDiv {
+  padding: 0 10px;
+  text-align: center;
+  width: 100%;
+}
+.browseAllBtn {
+  cursor: pointer;
+  margin-top: 10px;
+  width: 80%;
+}
+/************************ LARGE SCREENS ***********************/
+
+@media all and (min-width: 600px) {
+  .welcome_LogoDiv {
+    justify-content: flex-start;
+  }
+  .discover {
+    text-align: start;
+  }
+  .browseAllBtnLinkDiv {
+    text-align: start;
+    padding: 0;
+  }
+  .browseAllBtn {
+    width: 40%;
+    font-size: 16px;
+  }
+  .sect1 {
+    padding: 0 50px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .sect1 > :first-child {
+    backgrond: pink;
+    flex-basis: 90%;
+  }
+  .sect1 > :first-child p {
+    font-size: 18px;
+    font-weight: 600;
+    margin: 8px 0;
+  }
+  .sect1 > :first-child button {
+    margin-top: 10px;
+  }
+  .welcome {
+    font-size: 40px;
+  }
+  .ebukartLogoDiv {
+    height: 60px;
+    width: 150px;
+  }
+}
