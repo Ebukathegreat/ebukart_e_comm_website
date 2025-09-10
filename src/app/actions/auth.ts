@@ -32,6 +32,12 @@ interface FormSuccessState {
 // Union type for the returned form state
 type RegFormState = FormErrorState | FormSuccessState;
 
+interface ListUsersParams {
+  page?: number;
+  perPage?: number;
+  filter?: string;
+}
+
 // Create Supabase Admin client (uses service role key, only safe on server)
 const supabaseAdmin = createClient(
   process.env.NEXT_PUBLIC_SUPABASE_URL!,
@@ -71,7 +77,7 @@ export async function reg(
       page: 1,
       perPage: 1,
       filter: `email:ilike.${email}`, // ilike = case-insensitive
-    } as any); // <-- Cast to any to bypass TS error
+    } as ListUsersParams); // <-- Cast to any to bypass TS error
 
   // 4. If Admin API fails, return the error message
   if (adminError) {

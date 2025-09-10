@@ -44,7 +44,7 @@ export default function ProductsComp({ productsData }: ProductsCompProps) {
           ))
         ) : (
           <p className="text-white font-bold text-2xl italic text-center mt-5">
-            The product you're looking for isn't available.
+            The product you&apos;re looking for isn&apos;t available.
           </p>
         )}
       </ul>

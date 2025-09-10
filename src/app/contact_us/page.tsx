@@ -114,7 +114,7 @@ export default function ContactPage() {
             <div>
               <h3 className="font-semibold text-gray-800">Business Hours</h3>
               <p className="text-gray-600">
-                We're here for you{" "}
+                We&apos;re here for you{" "}
                 <span className="text-[20px] mt-2 text-pink-500 font-bold animate-pulse drop-shadow-[0_0_6px_rgba(255,105,180,0.8)]">
                   24/7
                 </span>

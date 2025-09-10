@@ -4,8 +4,6 @@ import Link from "next/link";
 import Stripe from "stripe";
 import styles from "./searchcompcardlink.module.css";
 import { Button } from "@/components/ui/button";
-import { useRouter } from "next/navigation";
-import { useEffect } from "react";
 
 interface SearchCompCardLinkProps {
   ftProd: Stripe.Product;
@@ -14,7 +12,6 @@ interface SearchCompCardLinkProps {
 
 export default function SearchCompCardLink({
   ftProd,
-  qry,
 }: SearchCompCardLinkProps) {
   const productPrice = ftProd.default_price as Stripe.Price;
   const searchTermCategory = ftProd.metadata.Category;

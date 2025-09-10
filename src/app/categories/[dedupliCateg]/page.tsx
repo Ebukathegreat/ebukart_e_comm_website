@@ -30,7 +30,7 @@ export default async function ProductCategory({
       </h1>
 
       <ul className={styles.dedupliCategCardsUl}>
-        {filteredProducts.map((ftProd, key) => (
+        {filteredProducts.map((ftProd) => (
           <li key={ftProd.id}>
             <DeDupliCategComp ftProd={ftProd} />
           </li>

@@ -3,7 +3,6 @@
 import { useActionState } from "react";
 import { reg } from "@/app/actions/auth";
 import styles from "./register.module.css"; // using the same module CSS (login-style)
-import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useEffect } from "react";

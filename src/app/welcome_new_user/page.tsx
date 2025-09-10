@@ -13,7 +13,7 @@ export default function WelcomeNewUser() {
           🎉 Welcome Aboard!
         </h1>
         <p className="text-gray-600 mb-6 text-lg">
-          Your account has been successfully created and confirmed. We're
+          Your account has been successfully created and confirmed. We&apos;re
           excited to have you with us!
         </p>
 

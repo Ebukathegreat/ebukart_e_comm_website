@@ -65,7 +65,7 @@ export default function DashboardPage() {
     };
 
     fetchOrders();
-  }, [user]);
+  }, [user, router]);
 
   useEffect(() => {
     console.log("Current orders state:", orders);
@@ -83,7 +83,7 @@ export default function DashboardPage() {
           {user?.email}
         </h2>
         <h3 className="text-center font-semibold text-[18px] text-white">
-          Here are the orders you've made so far:
+          Here are the orders you&apos;ve made so far:
         </h3>
       </div>
 
@@ -142,7 +142,7 @@ export default function DashboardPage() {
 
       {user && !loading && orders.length === 0 && (
         <p className="text-center text-white mt-4 ">
-          You haven't placed any orders yet.
+          You haven&apos;t placed any orders yet.
         </p>
       )}
 
