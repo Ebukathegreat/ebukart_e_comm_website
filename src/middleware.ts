@@ -13,7 +13,7 @@ export async function middleware(request: NextRequest) {
   const cookieHeader = request.headers.get("cookie") || "";
 
   // Create Supabase client with cookie header for auth state
-  const supabase = supabaseServer(cookieHeader);
+  const supabase = supabaseServer();
 
   const {
     data: { session },
