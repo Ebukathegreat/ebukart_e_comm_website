@@ -1,7 +1,7 @@
 "use client"; // This tells Next.js that this file should run in the browser, not just the server
 
 import { Button } from "@/components/ui/button"; // Importing a button component (fancy looking button)
-import styles from "./login.module.css"; // Importing our custom CSS styles
+import styles from "../app/(reglog)/login/login.module.css"; // Importing our custom CSS styles
 import Link from "next/link"; // Lets us move between pages
 import { useActionState, useEffect, useRef } from "react"; // React hooks – we'll use these to handle actions and side effects
 import { loginAuth } from "@/app/actions/auth"; // This is the function that actually logs the user in
