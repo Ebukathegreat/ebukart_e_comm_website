@@ -1,27 +1,10 @@
-import { Button } from "@/components/ui/button";
-import { stripe } from "@/lib/stripe";
-import SearchComp from "@/page_components/SearchComp";
-import Link from "next/link";
+import SearchPageComp from "@/page_components/SearchPageComp";
+import WithSuspense from "@/page_components/WithSuspense";
 
-export default async function Search() {
-  const products = await stripe.products.list({
-    expand: ["data.default_price"],
-  });
-
+export default function SearchPage() {
   return (
-    <div>
-      <SearchComp productsData={products.data} />
-
-      <div className="mb-9 px-6 text-center">
-        <Link href={"/products"}>
-          <Button
-            variant={"green"}
-            className="w-full md:w-[400px] cursor-pointer text-lg mt-5"
-          >
-            Check All Products
-          </Button>
-        </Link>
-      </div>
-    </div>
+    <WithSuspense>
+      <SearchPageComp />
+    </WithSuspense>
   );
 }
