@@ -8,7 +8,6 @@ import { UserProvider } from "@/page_components/UserProvider";
 import { supabaseBrowser } from "@/lib/supabase/client";
 import { Toaster } from "sonner";
 import BackendBanner from "@/page_components/BackendBanner";
-import "/public/fontawesomeicons/css/all.css";
 
 export default function RootLayout({
   children,
