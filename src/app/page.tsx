@@ -4,12 +4,14 @@ import Image from "next/image";
 import Carousel from "../page_components/Carousel";
 import styles from "./home.module.css";
 import Link from "next/link";
+import { Suspense } from "react";
 
 export default async function Home() {
   const products = await stripe.products.list({
     expand: ["data.default_price"],
     limit: 5,
   });
+
   return (
     <div className={styles.homeDiv}>
       <section className={styles.sect1}>
@@ -29,6 +31,12 @@ export default async function Home() {
           <p className={styles.discover}>
             Discover the latest products at the best prices.
           </p>
+          <p className="text-white mx-auto w-[70%]  text-center  sm:text-left">
+            Click the button below to start your journey.
+          </p>
+          <p className="animate-bounce mx-auto w-[70%] mt-3  text-center text-2xl  sm:w-[40%]  ">
+            👇
+          </p>
           <div className={styles.browseAllBtnLinkDiv}>
             <Link href="/products">
               <Button variant={"green"} className={styles.browseAllBtn}>
@@ -39,7 +47,13 @@ export default async function Home() {
         </div>
 
         <div className="w-full">
-          <Carousel productsData={products.data} />
+          <Suspense
+            fallback={
+              <p className="text-center text-white">Loading products...</p>
+            }
+          >
+            <Carousel productsData={products.data} />
+          </Suspense>
         </div>
       </section>
 

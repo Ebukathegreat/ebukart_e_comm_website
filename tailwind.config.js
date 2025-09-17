@@ -8,6 +8,10 @@ export const content = [
 export const theme = {
   extend: {
     // your theme extensions here (optional)
+    screens: {
+      min600: "600px", // new breakpoint
+    },
   },
 };
+
 export const plugins = [];

@@ -42,6 +42,7 @@
   }
   .discover {
     text-align: start;
+    margin-top: 0 !important;
   }
   .browseAllBtnLinkDiv {
     text-align: start;
@@ -50,6 +51,7 @@
   .browseAllBtn {
     width: 40%;
     font-size: 16px;
+    margin-top: 0;
   }
   .sect1 {
     padding: 0 50px;
@@ -58,16 +60,15 @@
     align-items: center;
   }
   .sect1 > :first-child {
-    backgrond: pink;
     flex-basis: 90%;
   }
   .sect1 > :first-child p {
     font-size: 18px;
     font-weight: 600;
-    margin: 8px 0;
+    margin: 10px 0;
   }
   .sect1 > :first-child button {
-    margin-top: 10px;
+    mgin-top: 5px;
   }
   .welcome {
     font-size: 40px;
