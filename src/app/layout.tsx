@@ -9,16 +9,6 @@ import { supabaseBrowser } from "@/lib/supabase/client";
 import { Toaster } from "sonner";
 import BackendBanner from "@/page_components/BackendBanner";
 
-// Add metadata for SEO and viewport settings
-export const metadata = {
-  title: "My Site",
-  description: "Next.js site",
-  viewport: {
-    width: "device-width",
-    initialScale: 1,
-  },
-};
-
 export default function RootLayout({
   children,
 }: {
@@ -66,6 +56,9 @@ export default function RootLayout({
 
   return (
     <html lang="en">
+      <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      </head>
       <body>
         <BackendBanner /> {/*  shows only if Supabase is offline */}
         {/* Wrap entire app in UserProvider so we can access `user` on any page */}
