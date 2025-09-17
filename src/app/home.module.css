@@ -1,5 +1,6 @@
 .homeDiv {
   paddig-bottom: 30px;
+  background: red;
 }
 .welcome_LogoDiv {
   display: flex;
