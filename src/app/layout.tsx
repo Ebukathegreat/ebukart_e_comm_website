@@ -9,6 +9,16 @@ import { supabaseBrowser } from "@/lib/supabase/client";
 import { Toaster } from "sonner";
 import BackendBanner from "@/page_components/BackendBanner";
 
+// Add metadata for SEO and viewport settings
+export const metadata = {
+  title: "My Site",
+  description: "Next.js site",
+  viewport: {
+    width: "device-width",
+    initialScale: 1,
+  },
+};
+
 export default function RootLayout({
   children,
 }: {
