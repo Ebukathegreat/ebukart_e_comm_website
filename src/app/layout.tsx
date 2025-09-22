@@ -85,7 +85,7 @@ export default function RootLayout({
             )}
           </header>
           {/* Render page content */}
-          <main className="bg-yellow-600">{children}</main>
+          <main className="bg-yellow-600 w-full">{children}</main>
           <Toaster richColors position="top-center" /> {/* ← toast container */}
         </UserProvider>
       </body>
