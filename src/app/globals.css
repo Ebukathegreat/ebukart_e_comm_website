@@ -16,11 +16,13 @@ body {
   padding: 0;
   width: 100%; /* force full width */
   min-height: 100%; /* prevent shrinking */
-  background: black;
+}
+html {
+  background: coral;
 }
 .mainClass {
   background: yellow;
-  width: 100% !important;
+  width: 100%;
 }
 .tog-Search-Inp-Div {
   width: 65%;
