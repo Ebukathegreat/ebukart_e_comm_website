@@ -16,12 +16,9 @@ body {
   padding: 0;
   width: 100%; /* force full width */
   min-height: 100%; /* prevent shrinking */
-}
-html {
-  background: coral;
+  background: black;
 }
 .mainClass {
-  background: yellow;
   width: 100%;
 }
 .tog-Search-Inp-Div {

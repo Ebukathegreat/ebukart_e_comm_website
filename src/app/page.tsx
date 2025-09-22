@@ -31,7 +31,7 @@ export default async function Home() {
           <p className={styles.discover}>
             Discover the latest products at the best prices.
           </p>
-          <p className="text-white mx-auto w-[70%]  text-center  sm:text-left">
+          <p className={styles.click}>
             Click the button below to start your journey.
           </p>
           <p className="animate-bounce mx-auto w-[70%] mt-3  text-center text-2xl  sm:w-[40%]  ">

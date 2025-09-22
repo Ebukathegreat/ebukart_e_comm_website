@@ -3,7 +3,6 @@
   justify-content: space-between;
   align-items: center;
   padding: 10px 15px;
-  background: aqua;
   flex-wrap: wrap;
 }
 
@@ -97,7 +96,7 @@
 
 /********************************** LARGE SCREENS **************************************/
 
-@media all and (min-width: 600px) {
+@media all and (min-width: 800px) {
   .homeLinkLogoDivSect {
     flex-basis: 20%;
     display: flex;

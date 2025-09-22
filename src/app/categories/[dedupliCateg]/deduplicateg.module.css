@@ -14,7 +14,7 @@
 
 /********************************** LARGE SCREENS **************************************/
 
-@media all and (min-width: 600px) {
+@media all and (min-width: 800px) {
   .dedupliCategCardsUl {
     display: grid;
     grid-template-columns: repeat(auto-fit, 430px); /* fixed 430px cards */

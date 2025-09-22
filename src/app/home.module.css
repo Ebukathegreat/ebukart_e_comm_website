@@ -1,6 +1,6 @@
 .homeDiv {
   paddig-bottom: 30px;
-  background: red;
+  bakground: red;
   padding: 0;
 }
 .welcome_LogoDiv {
@@ -8,13 +8,14 @@
   justify-content: center;
   gap: 8px;
   padding: 10px 0;
-  background: blue;
+  bakground: blue;
 }
 .welcome {
   font-weight: bold;
   font-size: 27px;
   color: #22c55e;
-  background: turquoise;
+  font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
+  backgound: turquoise;
 }
 .ebukartLogoDiv {
   position: relative;
@@ -27,6 +28,15 @@
   margin-bottom: 10px;
   text-align: center;
   width: 70%;
+  font-size: 1.1em;
+}
+.click {
+  margin: 0 auto;
+  color: white;
+  text-align: center;
+  width: 70%;
+  margin-top: 15px;
+  font-size: 1.1em;
 }
 .browseAllBtnLinkDiv {
   padding: 0 10px;
@@ -41,20 +51,30 @@
 
 /************************ LARGE SCREENS ***********************/
 
-@media all and (min-width: 600px) {
+@media all and (min-width: 800px) {
   .welcome_LogoDiv {
     justify-content: flex-start;
+  }
+  .welcome {
+    font-size: 38px;
+    font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS",
+      sans-serif;
   }
   .discover {
     text-align: start;
     margin-top: 0 !important;
   }
+  .click {
+    text-align: left;
+    width: 100%;
+  }
   .browseAllBtnLinkDiv {
     text-align: start;
     padding: 0;
   }
+
   .browseAllBtn {
-    width: 50%;
+    width: 60%;
     font-size: 16px;
     margin-top: 0;
   }
@@ -66,18 +86,16 @@
   }
   .sect1 > :first-child {
     flex-basis: 40%;
+    backgrund: pink;
   }
   .sect1 > :first-child p {
     font-size: 18px;
     font-weight: 600;
     margin: 10px 0;
-    background: blue;
+    backgrond: blue;
   }
   .sect1 > :first-child button {
     mgin-top: 5px;
-  }
-  .welcome {
-    font-size: 1.5rem;
   }
   .ebukartLogoDiv {
     height: 60px;
@@ -86,5 +104,6 @@
 
   .carouselDiv {
     flex-basis: 50%;
+    backgound: green;
   }
 }

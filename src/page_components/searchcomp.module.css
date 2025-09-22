@@ -3,7 +3,7 @@
 }
 
 /********************************** LARGE SCREENS **************************************/
-@media all and (min-width: 600px) {
+@media all and (min-width: 800px) {
   .searchCompCardLinkDiv {
     display: grid;
     grid-template-columns: repeat(auto-fit, 400px); /* fixed 400px cards */

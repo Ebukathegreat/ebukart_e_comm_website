@@ -35,10 +35,10 @@
 
 /********************************** LARGE SCREENS **************************************/
 
-@media all and (min-width: 600px) {
+@media all and (min-width: 800px) {
   .cardDiv {
-    width: 30%;
-    height: 480px;
+    width: 60%;
+    height: 580px;
   }
   .card {
     height: 420px;

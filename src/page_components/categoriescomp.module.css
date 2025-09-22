@@ -75,7 +75,7 @@
 
 /********************************** LARGE SCREENS **************************************/
 
-@media all and (min-width: 600px) {
+@media all and (min-width: 800px) {
   .dedepluCategDiv {
     padding: 0 20px;
     display: grid;
