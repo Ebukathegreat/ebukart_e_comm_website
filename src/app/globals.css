@@ -6,21 +6,17 @@
 @custom-variant dark (&:is(.dark *));
 /* globals.css */
 
+* {
+  box-sizing: border-box;
+}
+
 html,
 body {
   margin: 0; /* remove browser default margin */
   padding: 0;
   width: 100%; /* force full width */
   min-height: 100%; /* prevent shrinking */
-  box-sizing: border-box;
-  overflow-x: hidden; /* avoid sideways scroll on rotate */
   background: black;
-}
-
-*,
-*::before,
-*::after {
-  box-sizing: inherit;
 }
 
 .tog-Search-Inp-Div {
