@@ -18,7 +18,10 @@ body {
   min-height: 100%; /* prevent shrinking */
   background: black;
 }
-
+.mainClass {
+  background: yellow;
+  width: 100% !important;
+}
 .tog-Search-Inp-Div {
   width: 65%;
   background: rgb(66, 64, 64);
