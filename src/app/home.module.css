@@ -1,17 +1,20 @@
 .homeDiv {
   paddig-bottom: 30px;
   background: red;
+  padding: 0;
 }
 .welcome_LogoDiv {
   display: flex;
   justify-content: center;
   gap: 8px;
   padding: 10px 0;
+  background: blue;
 }
 .welcome {
   font-weight: bold;
   font-size: 27px;
   color: #22c55e;
+  background: turquoise;
 }
 .ebukartLogoDiv {
   position: relative;
@@ -35,6 +38,7 @@
   margin-top: 10px;
   width: 80%;
 }
+
 /************************ LARGE SCREENS ***********************/
 
 @media all and (min-width: 600px) {
@@ -55,27 +59,32 @@
     margin-top: 0;
   }
   .sect1 {
-    padding: 0 50px;
+    padding: 0 40px;
     display: flex;
     justify-content: space-between;
     align-items: center;
   }
   .sect1 > :first-child {
-    flex-basis: 90%;
+    flex-basis: 40%;
   }
   .sect1 > :first-child p {
     font-size: 18px;
     font-weight: 600;
     margin: 10px 0;
+    background: blue;
   }
   .sect1 > :first-child button {
     mgin-top: 5px;
   }
   .welcome {
-    font-size: 40px;
+    font-size: 1.5rem;
   }
   .ebukartLogoDiv {
     height: 60px;
     width: 150px;
+  }
+
+  .carouselDiv {
+    flex-basis: 50%;
   }
 }

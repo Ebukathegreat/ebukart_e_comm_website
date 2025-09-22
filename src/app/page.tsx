@@ -46,7 +46,7 @@ export default async function Home() {
           </div>
         </div>
 
-        <div className="w-full">
+        <div className={styles.carouselDiv}>
           <Suspense
             fallback={
               <p className="text-center text-white">Loading products...</p>
