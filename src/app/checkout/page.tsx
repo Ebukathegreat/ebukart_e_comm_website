@@ -27,7 +27,10 @@ export default function CheckoutPage() {
 
         <div className="w-full flex justify-center mt-3">
           <Link href={"/products"}>
-            <Button variant="green" className="text-white text-lg px-6 py-3">
+            <Button
+              variant="green"
+              className="text-white text-lg px-6 py-3 cursor-pointer"
+            >
               Go to Products Page
             </Button>
           </Link>

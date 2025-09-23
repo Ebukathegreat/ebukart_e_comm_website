@@ -23,7 +23,7 @@
   height: 44px;
 }
 .discover {
-  color: white;
+  clor: white;
   margin: 0 auto;
   margin-bottom: 10px;
   text-align: center;
@@ -32,7 +32,7 @@
 }
 .click {
   margin: 0 auto;
-  color: white;
+  coor: white;
   text-align: center;
   width: 70%;
   margin-top: 15px;
@@ -63,10 +63,12 @@
   .discover {
     text-align: start;
     margin-top: 0 !important;
+    color: white;
   }
   .click {
     text-align: left;
     width: 100%;
+    color: white;
   }
   .browseAllBtnLinkDiv {
     text-align: start;

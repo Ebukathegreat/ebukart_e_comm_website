@@ -103,7 +103,9 @@ export default function NavBar({
         {/* Mobile side menu */}
         <div
           ref={menuRef}
-          className={`${styles.sideMenuDiv} ${!menu ? styles.closedMenu : ""}`}
+          className={`${styles.sideMenuDiv} ${!menu ? styles.closedMenu : ""} ${
+            pathname === "/" ? styles.homeNavLinks : ""
+          }`}
         >
           {/* Close icon for mobile menu */}
           <div className={styles.cancelIconDiv}>
@@ -187,7 +189,11 @@ export default function NavBar({
 
           <div className={styles.cartAndQuantity}>
             <Link href="/checkout">
-              <ShoppingCartIcon className="mt-2.5 cursor-pointer text-white " />
+              <ShoppingCartIcon
+                className={`mt-2.5 cursor-pointer text-white ${
+                  pathname === "/" ? styles.homeNavCartIcon : ""
+                } `}
+              />
               {totalQuantity > 0 && (
                 <div className={styles.totalQuantityDiv}>{totalQuantity}</div>
               )}
@@ -195,7 +201,9 @@ export default function NavBar({
           </div>
 
           <Bars3Icon
-            className={`${styles.hamburgerMenu} w-5 h-5 mt-2.5 cursor-pointer text-white`}
+            className={`${styles.hamburgerMenu} ${
+              pathname === "/" ? styles.homeNavMenuIcon : ""
+            } `}
             onClick={open}
           />
         </div>

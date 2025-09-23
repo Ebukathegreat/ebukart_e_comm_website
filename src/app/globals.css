@@ -18,6 +18,9 @@ body {
   min-height: 100%; /* prevent shrinking */
   background: black;
 }
+body.home {
+  background: white;
+}
 .mainClass {
   width: 100%;
 }
@@ -39,6 +42,14 @@ body {
 
 .tog-Search-Inp-Div ::placeholder {
   color: white;
+}
+
+/********************************** LARGE SCREENS **************************************/
+
+@media all and (min-width: 800px) {
+  body.home {
+    background: black;
+  }
 }
 
 @theme inline {

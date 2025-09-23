@@ -15,7 +15,7 @@ export default async function Home() {
   return (
     <div className={styles.homeDiv}>
       <section className={styles.sect1}>
-        <div className="mt-5">
+        <div className="mt-5 ">
           <div className={styles.welcome_LogoDiv}>
             <div className={styles.welcome}>Welcome to</div>
             <div className={styles.ebukartLogoDiv}>
@@ -34,7 +34,7 @@ export default async function Home() {
           <p className={styles.click}>
             Click the button below to start your journey.
           </p>
-          <p className="animate-bounce mx-auto w-[70%] mt-3  text-center text-2xl  sm:w-[40%]  ">
+          <p className="animate-bounce  mx-auto w-[70%] mt-3  text-center text-2xl  sm:w-[58%]  ">
             👇
           </p>
           <div className={styles.browseAllBtnLinkDiv}>

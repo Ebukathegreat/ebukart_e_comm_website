@@ -26,6 +26,8 @@ export default function RootLayout({
   // Current page path (e.g., "/products", "/dashboard")
   const pathname = usePathname();
 
+  const isHome = pathname === "/";
+
   // Handle search form submission
   function handleSubmit(e: FormEvent) {
     e.preventDefault();
@@ -59,7 +61,7 @@ export default function RootLayout({
       <head>
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
       </head>
-      <body>
+      <body className={isHome ? "home" : ""}>
         <BackendBanner /> {/*  shows only if Supabase is offline */}
         {/* Wrap entire app in UserProvider so we can access `user` on any page */}
         <UserProvider>

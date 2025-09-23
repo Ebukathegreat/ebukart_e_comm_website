@@ -50,7 +50,13 @@
   flex-basis: 20%;
   backgrund: steelblue;
 }
-
+.hamburgerMenu {
+  width: 20px;
+  height: 20px;
+  margin-top: 10px;
+  color: white;
+  cursor: pointer;
+}
 .totalQuantityDiv {
   background: red;
   position: absolute;
@@ -93,7 +99,12 @@
   background: transparent;
   cursor: pointer;
 }
-
+.homeNavCartIcon {
+  color: black;
+}
+.homeNavMenuIcon {
+  color: black;
+}
 /********************************** LARGE SCREENS **************************************/
 
 @media all and (min-width: 800px) {
@@ -171,8 +182,10 @@
   .loginCartMenuDiv button {
     margin-top: 4px;
   }
-
   .hamburgerMenu {
     display: none;
+  }
+  .homeNavCartIcon {
+    color: white;
   }
 }
