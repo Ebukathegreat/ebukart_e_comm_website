@@ -13,90 +13,82 @@ export default function OtpErrorInnerComp() {
   const error_code = searchParams.get("error_code");
   const error_description = searchParams.get("error_description");
   const email = searchParams.get("email");
+  const code = searchParams.get("code"); // Supabase sometimes sends this
 
   // Track resend button status
-  const [status, setStatus] = useState<"idle" | "resending" | "sent" | "error">(
-    "idle"
-  );
-
-  // Redirect if no error is found (likely a successful login from confirmation email)
+  const [status, setStatus] = useState<
+    "idle" | "resending" | "sent" | "error" | "redirecting"
+  >("idle");
   useEffect(() => {
-    // Only run this redirect logic if there's no error in the URL
     if (!urlError) {
-      // 1. Subscribe to auth state changes (e.g., when user signs in via email link)
-      const { data: authListener } = supabase.auth.onAuthStateChange(
-        async (event, session) => {
-          // 2. If user signs in successfully, decide redirect
-          if (event === "SIGNED_IN" && session?.user) {
-            // ✅ Check if user is new
-            const isNewUser = session.user.user_metadata?.isNewUser;
+      const run = async () => {
+        // Case 1: Confirmation link with ?code=...
+        if (code) {
+          console.log("🔑 Code found in URL:", code);
+          setStatus("redirecting");
 
-            if (isNewUser) {
-              // Redirect to welcome page
-              router.replace("/welcome_new_user");
-              router.refresh();
-            } else {
-              // Redirect to dashboard
-              router.replace("/dashboard");
-              router.refresh();
-            }
+          const { data, error } = await supabase.auth.exchangeCodeForSession(
+            code
+          );
+
+          if (error) {
+            console.error("❌ exchangeCodeForSession failed:", error.message);
+            setStatus("error");
+            return;
           }
-        }
-      );
 
-      // 3. Also immediately check if user is already authenticated
-      // (sometimes Supabase restores the session before this runs)
-      supabase.auth.getUser().then(({ data }) => {
-        if (data?.user) {
-          const isNewUser = data.user.user_metadata?.isNewUser;
+          console.log("✅ Session returned:", data.session);
 
-          if (isNewUser) {
+          if (data.session?.user) {
+            // 🚀 Always send newly confirmed users to welcome page
             router.replace("/welcome_new_user");
             router.refresh();
           } else {
-            router.replace("/dashboard");
-            router.refresh();
+            console.warn("⚠️ No user in session after exchange!");
           }
+          return;
         }
-      });
 
-      // 4. Cleanup subscription when component unmounts
-      return () => {
-        authListener.subscription.unsubscribe();
+        // Case 2: Confirmation link with #access_token=...
+        const hashParams = new URLSearchParams(window.location.hash.slice(1));
+        const access_token = hashParams.get("access_token");
+
+        if (access_token) {
+          console.log("🔑 Access token found in hash:", access_token);
+          setStatus("redirecting");
+
+          const { data: authListener } = supabase.auth.onAuthStateChange(
+            async (event, session) => {
+              console.log("📡 Auth state changed:", event, session);
+              if (event === "SIGNED_IN" && session?.user) {
+                router.replace("/welcome_new_user");
+                router.refresh();
+              }
+            }
+          );
+
+          return () => {
+            authListener.subscription.unsubscribe();
+          };
+        }
       };
+
+      run();
     }
-  }, [urlError, router, supabase]);
-
-  // Handle resend confirmation email
-  const handleResend = async () => {
-    if (!email) {
-      setStatus("error");
-      return;
-    }
-
-    setStatus("resending");
-
-    const { error } = await supabase.auth.resend({
-      type: "signup",
-      email,
-      options: {
-        emailRedirectTo: `${
-          location.origin
-        }/otp_error?email=${encodeURIComponent(email)}`,
-      },
-    });
-
-    setStatus(error ? "error" : "sent");
-  };
+  }, [urlError, code, supabase, router]);
 
   // If no error in URL, user will be redirected
+  if (!urlError && status === "redirecting") {
+    return <p className="text-center mt-8">Redirecting to welcome page...</p>;
+  }
+
   if (!urlError) {
     return <p className="text-center mt-8">Redirecting...</p>;
   }
 
-  // Main UI
+  // Main UI (error state)
   return (
-    <div className="max-w-md mx-auto mt-12 p-8 bg-white rounded-lg shadow-md font-sans">
+    <div className=" max-w-md mx-auto mt-12 p-8 bg-white rounded-lg shadow-md font-sans">
       <h1 className="text-2xl font-bold text-red-600 mb-4">
         Authentication Error
       </h1>
@@ -114,7 +106,19 @@ export default function OtpErrorInnerComp() {
 
           {email ? (
             <button
-              onClick={handleResend}
+              onClick={async () => {
+                setStatus("resending");
+                const { error } = await supabase.auth.resend({
+                  type: "signup",
+                  email,
+                  options: {
+                    emailRedirectTo: `${
+                      location.origin
+                    }/otp_error?email=${encodeURIComponent(email)}`,
+                  },
+                });
+                setStatus(error ? "error" : "sent");
+              }}
               disabled={status === "resending"}
               className={`px-5 py-2 rounded-md text-white font-medium transition-colors duration-200 ${
                 status === "resending"

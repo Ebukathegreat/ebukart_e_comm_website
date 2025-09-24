@@ -139,6 +139,9 @@ export default function ProfilePage() {
               formData.append("userId", user.id);
               await deleteUser(formData);
 
+              localStorage.removeItem("supabase.auth.token");
+              sessionStorage.clear();
+
               // 3. Redirect to home and refresh UI
               router.replace("/");
               router.refresh();
