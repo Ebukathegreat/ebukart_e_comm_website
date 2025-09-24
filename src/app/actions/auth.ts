@@ -289,8 +289,13 @@ export async function changePasswordAuth(
 export async function deleteUser(formData: FormData): Promise<void> {
   const userId = formData.get("userId") as string;
   const supabase = supabaseServer();
-  await supabase.auth.signOut(); // end current session
-  await supabaseAdmin.auth.admin.deleteUser(userId); // delete user
 
+  // 1. Delete the user from Supabase (admin)
+  await supabaseAdmin.auth.admin.deleteUser(userId);
+
+  // 2. End the current session (sign out locally)
+  await supabase.auth.signOut();
+
+  // 3. Redirect to homepage
   redirect("/");
 }

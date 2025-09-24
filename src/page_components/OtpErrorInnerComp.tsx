@@ -26,10 +26,20 @@ export default function OtpErrorInnerComp() {
       // 1. Subscribe to auth state changes (e.g., when user signs in via email link)
       const { data: authListener } = supabase.auth.onAuthStateChange(
         async (event, session) => {
-          // 2. If user signs in successfully, redirect to welcome page
+          // 2. If user signs in successfully, decide redirect
           if (event === "SIGNED_IN" && session?.user) {
-            router.replace("/welcome_new_user");
-            router.refresh();
+            // ✅ Check if user is new
+            const isNewUser = session.user.user_metadata?.isNewUser;
+
+            if (isNewUser) {
+              // Redirect to welcome page
+              router.replace("/welcome_new_user");
+              router.refresh();
+            } else {
+              // Redirect to dashboard
+              router.replace("/dashboard");
+              router.refresh();
+            }
           }
         }
       );
@@ -38,8 +48,15 @@ export default function OtpErrorInnerComp() {
       // (sometimes Supabase restores the session before this runs)
       supabase.auth.getUser().then(({ data }) => {
         if (data?.user) {
-          router.replace("/dashboard"); // Redirect immediately if user already exists
-          router.refresh();
+          const isNewUser = data.user.user_metadata?.isNewUser;
+
+          if (isNewUser) {
+            router.replace("/welcome_new_user");
+            router.refresh();
+          } else {
+            router.replace("/dashboard");
+            router.refresh();
+          }
         }
       });
 
