@@ -43,12 +43,11 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  bacund: yellow;
 }
 
 .searchBtnDiv {
   flex-basis: 20%;
-  backgrund: steelblue;
+  backkgrund: steelblue;
 }
 .hamburgerMenu {
   width: 20px;
