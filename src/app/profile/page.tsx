@@ -145,7 +145,7 @@ export default function ProfilePage() {
               sessionStorage.clear();
 
               // 3. Redirect to home and refresh UI
-              router.replace("/");
+              router.push("/");
               router.refresh();
             }}
           >

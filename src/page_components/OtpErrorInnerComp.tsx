@@ -31,7 +31,7 @@ export default function OtpErrorInnerComp() {
           if (event === "SIGNED_IN" && session?.user) {
             // NEW: update status before redirect
             setStatus("redirecting");
-            router.replace("/welcome_new_user");
+            router.push("/welcome_new_user");
             router.refresh();
           }
         }
@@ -73,9 +73,16 @@ export default function OtpErrorInnerComp() {
         onClick={async () => {
           // NEW: set status before starting resend
           setStatus("resending");
+
+          const email = localStorage.getItem("pendingEmail"); // ✅ fetch stored email
+          if (!email) {
+            setStatus("error");
+            return;
+          }
+
           const { error } = await supabase.auth.resend({
             type: "signup",
-            email: "user@example.com", // replace with dynamic email
+            email,
             options: { emailRedirectTo: `${location.origin}/otp_error` },
           });
           // NEW: update status based on success or error

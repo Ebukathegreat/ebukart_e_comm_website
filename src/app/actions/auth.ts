@@ -131,6 +131,8 @@ export async function reg(
     };
   }
 
+  // localStorage.setItem("pendingEmail", email);
+
   // 9. On success, redirect to the confirmation check page
   return { redirectTo: "/account_confirmation_check_email" };
 }
