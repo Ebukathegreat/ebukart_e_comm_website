@@ -139,6 +139,8 @@ export default function ProfilePage() {
               formData.append("userId", user.id);
               await deleteUser(formData);
 
+              await supabase.auth.signOut();
+
               localStorage.removeItem("supabase.auth.token");
               sessionStorage.clear();
 
