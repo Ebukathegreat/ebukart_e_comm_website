@@ -37,21 +37,42 @@ export function UserProvider({ children }: UserProviderProps) {
   const supabase = supabaseBrowser(); // Create a Supabase browser client
 
   useEffect(() => {
-    // 1. Fetch the latest user information on component mount.
-    // Using getSession() ensures we always have the freshest, verified user data
-    supabase.auth.getSession().then(({ data: { session } }) => {
-      setUser(session?.user || null);
-    });
+    async function init() {
+      // 🔹 NEW: Check for PKCE code/token in the URL (signup/verify links)
+      const url = new URL(window.location.href);
+      const token =
+        url.searchParams.get("code") || url.searchParams.get("token");
 
-    // 2. Listen to authentication state changes (login/logout events)
-    const { data: authListener } = supabase.auth.onAuthStateChange(
-      async (_event, session) => {
-        setUser(session?.user || null);
+      if (token && token.startsWith("pkce_")) {
+        // 🔹 NEW: Exchange PKCE code for a Supabase session
+        const { data, error } = await supabase.auth.exchangeCodeForSession(
+          token
+        );
+        if (error) {
+          console.error("PKCE session exchange failed:", error);
+          setUser(null);
+        } else {
+          setUser(data?.session?.user ?? null);
+        }
+      } else {
+        // 1. Fetch the latest user information on component mount.
+        // Using getSession() ensures we always have the freshest, verified user data
+        const { data } = await supabase.auth.getSession();
+        setUser(data.session?.user || null);
       }
-    );
 
-    // 3. Cleanup: unsubscribe from the auth listener when this component unmounts.
-    return () => authListener.subscription.unsubscribe();
+      // 2. Listen to authentication state changes (login/logout events)
+      const { data: authListener } = supabase.auth.onAuthStateChange(
+        async (_event, session) => {
+          setUser(session?.user || null);
+        }
+      );
+
+      // 3. Cleanup: unsubscribe from the auth listener when this component unmounts.
+      return () => authListener.subscription.unsubscribe();
+    }
+
+    init();
   }, [supabase]);
 
   return (

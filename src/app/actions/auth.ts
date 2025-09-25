@@ -71,6 +71,8 @@ export async function reg(
 
   const { email, password } = validatedFields.data;
 
+  //localStorage.setItem("pendingEmail", email);
+
   // 3. Check if the user already exists using Supabase Admin API
   const { data: userData, error: adminError } =
     await supabaseAdmin.auth.admin.listUsers({
@@ -130,8 +132,6 @@ export async function reg(
       email,
     };
   }
-
-  // localStorage.setItem("pendingEmail", email);
 
   // 9. On success, redirect to the confirmation check page
   return { redirectTo: "/account_confirmation_check_email" };

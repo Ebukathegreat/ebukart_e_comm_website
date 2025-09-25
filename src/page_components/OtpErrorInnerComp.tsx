@@ -3,10 +3,12 @@
 import { supabaseBrowser } from "@/lib/supabase/client";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useEffect, useState } from "react";
+import { useUser } from "./UserProvider";
 
 export default function OtpErrorInnerComp() {
   const router = useRouter();
   const supabase = supabaseBrowser();
+  const { user } = useUser(); // ✅ NEW: get user from UserProvider
 
   const [status, setStatus] = useState<
     "idle" | "resending" | "sent" | "error" | "redirecting"
@@ -22,27 +24,14 @@ export default function OtpErrorInnerComp() {
   }, [searchParams]);
 
   useEffect(() => {
-    // Only run this redirect logic if there's no error in the URL
-    if (!urlError) {
-      // 1. Subscribe to auth state changes (e.g., when user signs in via email link)
-      const { data: authListener } = supabase.auth.onAuthStateChange(
-        async (event, session) => {
-          // 2. If user signs in successfully, redirect to welcome page
-          if (event === "SIGNED_IN" && session?.user) {
-            // NEW: update status before redirect
-            setStatus("redirecting");
-            router.push("/welcome_new_user");
-            router.refresh();
-          }
-        }
-      );
-
-      // 4. Cleanup subscription when component unmounts
-      return () => {
-        authListener.subscription.unsubscribe();
-      };
+    // ✅ NEW: Instead of subscribing here, rely on UserProvider state
+    if (!urlError && user) {
+      // 1. If a user exists, redirect straight away
+      setStatus("redirecting");
+      router.push("/welcome_new_user");
+      router.refresh();
     }
-  }, [urlError, router, supabase]);
+  }, [urlError, user, router]);
 
   // NEW: use status to show redirect message
   if (!urlError) {
@@ -74,17 +63,18 @@ export default function OtpErrorInnerComp() {
           // NEW: set status before starting resend
           setStatus("resending");
 
-          const email = localStorage.getItem("pendingEmail"); // ✅ fetch stored email
-          if (!email) {
+          // ✅ NEW: use user?.email dynamically instead of localStorage
+          if (!user?.email) {
             setStatus("error");
             return;
           }
 
           const { error } = await supabase.auth.resend({
             type: "signup",
-            email,
+            email: user.email,
             options: { emailRedirectTo: `${location.origin}/otp_error` },
           });
+
           // NEW: update status based on success or error
           setStatus(error ? "error" : "sent");
         }}
