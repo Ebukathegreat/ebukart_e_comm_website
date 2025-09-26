@@ -144,8 +144,7 @@ export default function ProfilePage() {
               //localStorage.removeItem("supabase.auth.token");
               //sessionStorage.clear();
 
-              // 3. Sign out cleanly (updates context immediately)
-              console.log("Signed out successfully");
+              // 3. Sign out cleanly (updates context immediately);
               alert("signed out successfully");
 
               // 4. Optional: navigate home
