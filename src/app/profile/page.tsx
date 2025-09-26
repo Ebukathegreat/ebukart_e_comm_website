@@ -146,10 +146,7 @@ export default function ProfilePage() {
               //sessionStorage.clear();
 
               // 3. Redirect to home and refresh UI
-              if (!user) {
-                router.push("/");
-                router.refresh();
-              }
+              window.location.href = "/"; // 🔄 Forces full reload to "/"
             }}
           >
             Delete Account
