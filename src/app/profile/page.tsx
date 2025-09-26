@@ -132,8 +132,7 @@ export default function ProfilePage() {
               const supabase = supabaseBrowser();
 
               // 1. Sign out from client session first
-              await supabase.auth.signOut();
-
+              await signOut();
               // 2. Then delete user from Supabase (server-side action)
               const formData = new FormData();
               formData.append("userId", user.id);
@@ -146,7 +145,6 @@ export default function ProfilePage() {
               //sessionStorage.clear();
 
               // 3. Sign out cleanly (updates context immediately)
-              await signOut();
               console.log("Signed out successfully");
               alert("signed out successfully");
 
