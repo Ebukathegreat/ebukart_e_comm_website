@@ -147,6 +147,8 @@ export default function ProfilePage() {
 
               // 3. Sign out cleanly (updates context immediately)
               await signOut();
+              console.log("Signed out successfully");
+              alert("signed out successfully");
 
               // 4. Optional: navigate home
               //router.push("/");
