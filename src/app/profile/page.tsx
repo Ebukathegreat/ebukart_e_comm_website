@@ -129,7 +129,7 @@ export default function ProfilePage() {
                 return;
               }
 
-              const supabase = supabaseBrowser();
+              //const supabase = supabaseBrowser();
 
               // 1. Sign out from client session first
               await signOut();
