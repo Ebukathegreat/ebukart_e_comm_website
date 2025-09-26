@@ -30,11 +30,32 @@ export default function OtpErrorInnerComp() {
       setStatus("redirecting");
       router.push("/welcome_new_user");
       router.refresh();
-      router.refresh();
     }
   }, [urlError, user, router]);
 
-  // NEW: use status to show redirect message
+  // NEW: show a spinner while UserProvider is still checking auth (user === undefined)
+  if (!urlError && user === undefined) {
+    return (
+      <div>
+        <p className="text-xl text-center text-white mt-5">
+          Checking session...
+        </p>
+      </div>
+    );
+  }
+
+  // NEW: if user is still null after verification attempt, show error
+  if (!urlError && user === null) {
+    return (
+      <div>
+        <p className="text-xl text-center text-red-500 mt-5">
+          Could not verify your email. Please request a new link.
+        </p>
+      </div>
+    );
+  }
+
+  // Existing: use status to show redirect message
   if (!urlError) {
     return (
       <div>
