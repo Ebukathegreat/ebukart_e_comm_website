@@ -82,6 +82,9 @@ export function UserProvider({ children }: UserProviderProps) {
     localStorage.removeItem("supabase.auth.token");
     sessionStorage.clear();
     setUser(null); // force UI update
+    setTimeout(() => {
+      window.location.href = "/";
+    }, 300);
   };
 
   return (

@@ -149,7 +149,8 @@ export default function ProfilePage() {
               await signOut();
 
               // 4. Optional: navigate home
-              router.push("/");
+              //router.push("/");
+              //window.location.href = "/";
             }}
           >
             Delete Account
