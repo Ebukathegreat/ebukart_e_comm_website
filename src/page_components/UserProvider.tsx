@@ -13,6 +13,7 @@ import { User } from "@supabase/supabase-js";
 // Define the shape of the context value
 interface UserContextType {
   user: User | null | undefined; // Current authenticated user, null if not logged in, undefined if still checking
+  signOut: () => Promise<void>; // 🔹 NEW: expose signOut function so UI can log out cleanly
 }
 
 // Create the context with a default value of undefined
@@ -75,9 +76,19 @@ export function UserProvider({ children }: UserProviderProps) {
     init();
   }, [supabase]);
 
+  // 🔹 NEW: logout function updates context immediately so UI reacts
+  const signOut = async () => {
+    await supabase.auth.signOut();
+    localStorage.removeItem("supabase.auth.token");
+    sessionStorage.clear();
+    setUser(null); // force UI update
+  };
+
   return (
-    // Provide the `user` value to all child components via context.
-    <UserContext.Provider value={{ user }}>{children}</UserContext.Provider>
+    // Provide the `user` value and signOut function to all child components via context.
+    <UserContext.Provider value={{ user, signOut }}>
+      {children}
+    </UserContext.Provider>
   );
 }
 

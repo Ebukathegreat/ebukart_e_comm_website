@@ -13,7 +13,7 @@ export default function ProfilePage() {
   // Custom hook to detect if the component has mounted (for safe rendering on the client)
   const hasMounted = useHasMounted();
 
-  const { user } = useUser();
+  const { user, signOut } = useUser();
 
   const router = useRouter();
 
@@ -145,8 +145,11 @@ export default function ProfilePage() {
               //localStorage.removeItem("supabase.auth.token");
               //sessionStorage.clear();
 
-              // 3. Redirect to home and refresh UI
-              window.location.href = "/"; // 🔄 Forces full reload to "/"
+              // 3. Sign out cleanly (updates context immediately)
+              await signOut();
+
+              // 4. Optional: navigate home
+              router.push("/");
             }}
           >
             Delete Account
