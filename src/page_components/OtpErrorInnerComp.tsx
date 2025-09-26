@@ -16,6 +16,7 @@ export default function OtpErrorInnerComp() {
 
   const searchParams = useSearchParams();
   const [urlError, setUrlError] = useState<string | null>(null);
+  let interval: NodeJS.Timeout | null = null; // NEW: if user is still null after verification attempt, show error
 
   // Make urlError reactive with useState
   useEffect(() => {
@@ -30,7 +31,19 @@ export default function OtpErrorInnerComp() {
       setStatus("redirecting");
       router.push("/welcome_new_user");
       router.refresh();
+      if (interval) clearInterval(interval);
     }
+
+    if (!urlError && user === null) {
+      interval = setInterval(() => {
+        router.refresh();
+      }, 5000);
+    }
+
+    // ✅ Always clean up interval if it exists
+    return () => {
+      if (interval) clearInterval(interval);
+    };
   }, [urlError, user, router]);
 
   // NEW: show a spinner while UserProvider is still checking auth (user === undefined)
@@ -39,17 +52,6 @@ export default function OtpErrorInnerComp() {
       <div>
         <p className="text-xl text-center text-white mt-5">
           Checking session...
-        </p>
-      </div>
-    );
-  }
-
-  // NEW: if user is still null after verification attempt, show error
-  if (!urlError && user === null) {
-    return (
-      <div>
-        <p className="text-xl text-center text-red-500 mt-5">
-          Could not verify your email. Please request a new link.
         </p>
       </div>
     );
