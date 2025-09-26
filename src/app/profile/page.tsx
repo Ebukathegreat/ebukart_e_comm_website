@@ -137,16 +137,19 @@ export default function ProfilePage() {
               // 2. Then delete user from Supabase (server-side action)
               const formData = new FormData();
               formData.append("userId", user.id);
+
               await deleteUser(formData);
 
-              await supabase.auth.signOut();
+              //await supabase.auth.signOut();
 
-              localStorage.removeItem("supabase.auth.token");
-              sessionStorage.clear();
+              //localStorage.removeItem("supabase.auth.token");
+              //sessionStorage.clear();
 
               // 3. Redirect to home and refresh UI
-              router.push("/");
-              router.refresh();
+              if (!user) {
+                router.push("/");
+                router.refresh();
+              }
             }}
           >
             Delete Account
