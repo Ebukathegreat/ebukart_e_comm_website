@@ -28,7 +28,9 @@ export default function OtpErrorInnerComp() {
     if (!urlError && user) {
       // 1. If a user exists, redirect straight away
       setStatus("redirecting");
-      router.replace("/welcome_new_user");
+      router.push("/welcome_new_user");
+      router.refresh();
+      router.refresh();
     }
   }, [urlError, user, router]);
 
