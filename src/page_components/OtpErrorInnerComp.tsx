@@ -29,32 +29,20 @@ export default function OtpErrorInnerComp() {
     if (!urlError && user) {
       // 1. If a user exists, redirect straight away
       setStatus("redirecting");
-      router.push("/welcome_new_user");
-      router.refresh();
-      if (interval) clearInterval(interval);
+      function move() {
+        window.location.href = "/welcome_new_user";
+      }
+      move();
     }
-
-    if (!urlError && user === null) {
-      interval = setInterval(() => {
-        router.refresh();
-      }, 5000);
-    }
-
-    // ✅ Always clean up interval if it exists
-    return () => {
-      if (interval) clearInterval(interval);
-    };
   }, [urlError, user, router]);
+
+  if (!urlError && user === null) {
+    return <p>No email</p>;
+  }
 
   // NEW: show a spinner while UserProvider is still checking auth (user === undefined)
   if (!urlError && user === undefined) {
-    return (
-      <div>
-        <p className="text-xl text-center text-white mt-5">
-          Checking session...
-        </p>
-      </div>
-    );
+    setInterval(move, 2000);
   }
 
   // Existing: use status to show redirect message
@@ -127,4 +115,7 @@ export default function OtpErrorInnerComp() {
       )}
     </div>
   );
+}
+function move(): void {
+  throw new Error("Function not implemented.");
 }
