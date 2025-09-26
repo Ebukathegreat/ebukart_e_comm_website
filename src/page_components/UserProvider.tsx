@@ -38,34 +38,20 @@ export function UserProvider({ children }: UserProviderProps) {
 
   useEffect(() => {
     async function init() {
+      // 🔹 NEW: Look for both `code` and `token` query params (Supabase may send either)
       const url = new URL(window.location.href);
+      const code =
+        url.searchParams.get("code") || url.searchParams.get("token");
 
-      // NEW: Supabase can return either "token=pkce_..." OR "code=<uuid>" in verify links
-      const pkceToken = url.searchParams.get("token");
-      const code = url.searchParams.get("code");
-
-      if (pkceToken && pkceToken.startsWith("pkce_")) {
-        // NEW: Exchange PKCE token for a Supabase session
-        const { data, error } = await supabase.auth.exchangeCodeForSession(
-          pkceToken
-        );
-        if (error) {
-          console.error("❌ PKCE session exchange failed:", error);
-          setUser(null);
-        } else {
-          console.log("✅ PKCE session exchange success");
-          setUser(data?.session?.user ?? null);
-        }
-      } else if (code) {
-        // NEW: Handle "code=<uuid>" tokens from email confirmation
+      if (code) {
+        // 🔹 NEW: Always try to exchange code/token for a Supabase session
         const { data, error } = await supabase.auth.exchangeCodeForSession(
           code
         );
         if (error) {
-          console.error("❌ Code session exchange failed:", error);
+          console.error("Session exchange failed:", error);
           setUser(null);
         } else {
-          console.log("✅ Code session exchange success");
           setUser(data?.session?.user ?? null);
         }
       } else {
