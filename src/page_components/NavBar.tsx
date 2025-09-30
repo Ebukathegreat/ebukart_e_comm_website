@@ -30,7 +30,7 @@ export default function NavBar({
   const menuRef = useRef<HTMLDivElement | null>(null); // Reference to mobile menu for outside click detection
   const pathname = usePathname(); // Current URL path
   const router = useRouter(); // Next.js router for navigation
-  const { user } = useUser(); // Authenticated user from context
+  const { user, signOut } = useUser(); // Authenticated user from context
   const supabase = supabaseBrowser(); // Supabase client (browser side)
 
   // Toggle mobile menu open
@@ -129,21 +129,21 @@ export default function NavBar({
           {/* Logout button */}
           {user && (
             <div className={styles.logoutDiv}>
-              <Link
-                href=""
+              <a
                 onClick={async () => {
                   const { error } = await supabase.auth.signOut();
                   if (error) {
                     console.error("Logout failed:", error.message);
                     return;
                   }
-                  router.push("/");
+
+                  await signOut();
                   router.refresh();
                 }}
                 className={styles.logout}
               >
                 Logout
-              </Link>
+              </a>
             </div>
           )}
         </div>

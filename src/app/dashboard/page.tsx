@@ -79,9 +79,12 @@ export default function DashboardPage() {
         >
           Welcome back,
         </h1>
-        <h2 className="italic text-2xl text-center mb-2.5 text-slate-600">
+
+        {/* ⚡ Shows in Chrome, Firefox, and Safari (desktop + iOS). */}
+        <h2 className="italic text-2xl text-center mb-2.5 bg-gradient-to-r from-[#4ade80] to-[#3b82f6] bg-clip-text text-transparent [-webkit-background-clip:text] [-webkit-text-fill-color:transparent]">
           {user?.email}
         </h2>
+
         <h3 className="text-center font-semibold text-[18px] text-white">
           Here are the orders you&apos;ve made so far:
         </h3>

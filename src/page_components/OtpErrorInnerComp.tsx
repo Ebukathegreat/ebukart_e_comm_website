@@ -16,7 +16,7 @@ export default function OtpErrorInnerComp() {
 
   const searchParams = useSearchParams();
   const [urlError, setUrlError] = useState<string | null>(null);
-  let interval: NodeJS.Timeout | null = null; // NEW: if user is still null after verification attempt, show error
+  //let interval: NodeJS.Timeout | null = null; // NEW: if user is still null after verification attempt, show error
 
   // Make urlError reactive with useState
   useEffect(() => {
@@ -40,7 +40,7 @@ export default function OtpErrorInnerComp() {
     return <p>No email</p>;
   }
 
-  // NEW: show a spinner while UserProvider is still checking auth (user === undefined)
+  // NEW: If UserProvider is still checking auth (user === undefined)
   if (!urlError && user === undefined) {
     setInterval(move, 2000);
   }
