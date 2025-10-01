@@ -3,7 +3,7 @@
 import { Button } from "@/components/ui/button"; // Importing a button component (fancy looking button)
 import styles from "../app/(reglog)/login/login.module.css"; // Importing our custom CSS styles
 import Link from "next/link"; // Lets us move between pages
-import { useActionState, useEffect, useRef } from "react"; // React hooks – we'll use these to handle actions and side effects
+import { useActionState, useEffect, useRef, useState } from "react"; // React hooks – we'll use these to handle actions and side effects
 import { loginAuth } from "@/app/actions/auth"; // This is the function that actually logs the user in
 import { useRouter, useSearchParams } from "next/navigation"; // Helps us change or read the URL
 import { toast } from "sonner"; // Using the new Sonner toast – small popup messages
@@ -23,6 +23,10 @@ export default function LoginClient() {
 
   const user = useUser();
   const supabase = supabaseBrowser();
+
+  // 🔹 NEW: State for forgot password modal
+  const [showForgotModal, setShowForgotModal] = useState(false);
+  const [resetEmail, setResetEmail] = useState("");
 
   //  This runs when the page loads (or when URL changes). It will run if the user is redirected here due to a password change.
   useEffect(() => {
@@ -103,6 +107,17 @@ export default function LoginClient() {
               ))}
             </ul>
           )}
+
+          {/* 🔹 NEW: Forgot password link */}
+          <p className="text-sm mt-2">
+            <button
+              type="button"
+              onClick={() => setShowForgotModal(true)}
+              className="text-blue-400 hover:underline cursor-pointer"
+            >
+              Forgot password?
+            </button>
+          </p>
         </div>
 
         {/* LOGIN BUTTON + LINK TO REGISTER PAGE */}
@@ -123,6 +138,60 @@ export default function LoginClient() {
           </Link>
         </div>
       </form>
+
+      {/* 🔹 NEW: Forgot password modal */}
+      {showForgotModal && (
+        <div className="fixed inset-0 flex items-center justify-center bg-gray-800 bg-opacity-60 z-50">
+          <div className="bg-white p-6 rounded-lg w-[300px] sm:w-[350px]">
+            <h2 className="text-lg font-semibold mb-3">Reset your password</h2>
+            <form
+              onSubmit={async (e) => {
+                e.preventDefault();
+
+                const { error } = await supabase.auth.resetPasswordForEmail(
+                  resetEmail,
+                  {
+                    redirectTo: `${process.env.NEXT_PUBLIC_BASE_URL}/reset-password`,
+                  }
+                );
+
+                if (error) {
+                  toast.error(error.message);
+                } else {
+                  toast.success("Check your email for a reset link.");
+                  setShowForgotModal(false);
+                  setResetEmail("");
+                }
+              }}
+              className="flex flex-col gap-3"
+            >
+              <input
+                type="email"
+                placeholder="Enter your email..."
+                value={resetEmail}
+                onChange={(e) => setResetEmail(e.target.value)}
+                required
+                className="p-2 border rounded text-black"
+              />
+              <div className="flex justify-between mt-3">
+                <button
+                  type="button"
+                  onClick={() => setShowForgotModal(false)}
+                  className="px-3 py-1 bg-gray-300 rounded cursor-pointer"
+                >
+                  Cancel
+                </button>
+                <button
+                  type="submit"
+                  className="px-3 py-1 bg-green-600 text-white rounded cursor-pointer"
+                >
+                  Send Link
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
