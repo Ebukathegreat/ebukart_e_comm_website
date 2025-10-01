@@ -151,7 +151,7 @@ export default function LoginClient() {
                 const { error } = await supabase.auth.resetPasswordForEmail(
                   resetEmail,
                   {
-                    redirectTo: `${process.env.NEXT_PUBLIC_BASE_URL}/reset-password`,
+                    redirectTo: `${process.env.NEXT_PUBLIC_BASE_URL}/reset-forgotten-password`,
                   }
                 );
 
