@@ -9,7 +9,6 @@ import {
 import { z } from "zod";
 import { createClient } from "@supabase/supabase-js";
 import { redirect } from "next/navigation";
-import { supabaseBrowser } from "@/lib/supabase/client";
 // ************************************* REGISTER FORM AUTHENTICATION *************************************
 
 // Types for error structure
@@ -105,7 +104,7 @@ export async function reg(
 
   // 🔹 NEW: Use browser client for actual signup (NOT supabaseServer, which skips email confirmation)
 
-  const supabase = supabaseBrowser();
+  const supabase = supabaseServer();
 
   // Build redirect URL to handle confirmation with email included
   const redirectUrl = new URL(`${process.env.NEXT_PUBLIC_BASE_URL}/otp_error`);
