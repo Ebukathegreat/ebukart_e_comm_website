@@ -110,7 +110,7 @@ export default function OtpErrorInnerComp() {
       {/* NEW: error message */}
       {status === "error" && (
         <p className="mt-4 text-red-600 font-semibold">
-          ❌ Failed to resend email. Please try again.
+          ❌ Failed to resend email. Please try registering again.
         </p>
       )}
     </div>

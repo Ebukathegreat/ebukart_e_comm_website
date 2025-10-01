@@ -9,7 +9,7 @@ import {
 import { z } from "zod";
 import { createClient } from "@supabase/supabase-js";
 import { redirect } from "next/navigation";
-
+import { supabaseBrowser } from "@/lib/supabase/client";
 // ************************************* REGISTER FORM AUTHENTICATION *************************************
 
 // Types for error structure
@@ -71,8 +71,6 @@ export async function reg(
 
   const { email, password } = validatedFields.data;
 
-  //localStorage.setItem("pendingEmail", email);
-
   // 3. Check if the user already exists using Supabase Admin API
   const { data: userData, error: adminError } =
     await supabaseAdmin.auth.admin.listUsers({
@@ -105,23 +103,24 @@ export async function reg(
     };
   }
 
-  // 6. Continue with registration since the email is not taken
-  const supabase = supabaseServer();
+  // 🔹 NEW: Use browser client for actual signup (NOT supabaseServer, which skips email confirmation)
+
+  const supabase = supabaseBrowser();
 
   // Build redirect URL to handle confirmation with email included
   const redirectUrl = new URL(`${process.env.NEXT_PUBLIC_BASE_URL}/otp_error`);
   redirectUrl.searchParams.append("email", email);
 
-  // 7. Attempt to register the user
+  // 6. Attempt to register the user
   const { error } = await supabase.auth.signUp({
     email,
     password,
     options: {
-      emailRedirectTo: redirectUrl.toString(),
+      emailRedirectTo: redirectUrl.toString(), // 🔹 NEW: ensures confirmation email gets sent
     },
   });
 
-  // 8. If Supabase returns an error, return it as form feedback
+  // 7. If Supabase returns an error, return it as form feedback
   if (error) {
     return {
       errors: {
@@ -133,7 +132,7 @@ export async function reg(
     };
   }
 
-  // 9. On success, redirect to the confirmation check page
+  // 8. On success, redirect to the confirmation check page
   return { redirectTo: "/account_confirmation_check_email" };
 }
 
