@@ -43,28 +43,6 @@ export function UserProvider({ children }: UserProviderProps) {
       const url = new URL(window.location.href);
       const code =
         url.searchParams.get("code") || url.searchParams.get("token");
-      const type = url.searchParams.get("type"); // NEW: detect password recovery links
-
-      // 🔹 Handle password recovery links separately
-      if (type === "recovery" && code) {
-        console.log("🔹 Password recovery link detected");
-
-        // Give Supabase a short delay to validate the token internally
-        await new Promise((res) => setTimeout(res, 800));
-
-        // Attempt to retrieve the session that Supabase just restored
-        const { data, error } = await supabase.auth.getSession();
-
-        if (error) {
-          console.error("Error restoring recovery session:", error);
-          setUser(null);
-        } else {
-          setUser(data.session?.user ?? null);
-        }
-
-        // Stop here so we don’t trigger normal login logic
-        return;
-      }
 
       if (code) {
         // 🔹 NEW: Always try to exchange code/token for a Supabase session

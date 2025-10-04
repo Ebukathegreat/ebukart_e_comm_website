@@ -172,7 +172,7 @@ export default function LoginClient() {
                   // If user exists, send reset email
                   const { error } =
                     await altSupabase.auth.resetPasswordForEmail(resetEmail, {
-                      redirectTo: `${process.env.NEXT_PUBLIC_BASE_URL}/reset-forgotten-password`,
+                      redirectTo: `https://ebukart.vercel.app/reset-forgotten-password`,
                     });
 
                   if (error) {
