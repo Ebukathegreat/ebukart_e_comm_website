@@ -27,6 +27,7 @@ export default function LoginClient() {
   // 🔹 NEW: State for forgot password modal
   const [showForgotModal, setShowForgotModal] = useState(false);
   const [resetEmail, setResetEmail] = useState("");
+  const [loadingReset, setLoadingReset] = useState(false); // 🔹 NEW: track loading state for reset
 
   //  This runs when the page loads (or when URL changes). It will run if the user is redirected here due to a password change.
   useEffect(() => {
@@ -58,8 +59,6 @@ export default function LoginClient() {
   useEffect(() => {
     if (state && "redirectTo" in state && user !== null) {
       //  If yes, move the user to another page (like /dashboard)
-      //router.push(state.redirectTo);
-      // router.refresh();
       window.location.href = state.redirectTo; // Makes sure that Dashboard button shows instead of login button
     }
   }, [state, user]);
@@ -147,20 +146,46 @@ export default function LoginClient() {
             <form
               onSubmit={async (e) => {
                 e.preventDefault();
+                setLoadingReset(true); // NEW: show loading
 
-                const { error } = await supabase.auth.resetPasswordForEmail(
-                  resetEmail,
-                  {
-                    redirectTo: `${process.env.NEXT_PUBLIC_BASE_URL}/reset-forgotten-password`,
+                try {
+                  // 🔹 NEW: Call our secure API route to check user
+                  const res = await fetch("/api/auth/check_user", {
+                    method: "POST",
+                    headers: {
+                      "Content-Type": "application/json",
+                    },
+                    body: JSON.stringify({ email: resetEmail }),
+                  });
+
+                  const result = await res.json();
+
+                  if (!result.exists) {
+                    toast.error("No account found with this email.");
+                    setLoadingReset(false);
+                    return;
                   }
-                );
 
-                if (error) {
-                  toast.error(error.message);
-                } else {
-                  toast.success("Check your email for a reset link.");
-                  setShowForgotModal(false);
-                  setResetEmail("");
+                  // If user exists, send reset email
+                  const { error } = await supabase.auth.resetPasswordForEmail(
+                    resetEmail,
+                    {
+                      redirectTo: `${process.env.NEXT_PUBLIC_BASE_URL}/reset-forgotten-password`,
+                    }
+                  );
+
+                  if (error) {
+                    toast.error(error.message);
+                  } else {
+                    toast.success("Check your email for a reset link.");
+                    setShowForgotModal(false);
+                    setResetEmail("");
+                  }
+                } catch (err) {
+                  toast.error("Unexpected error. Try again.");
+                  console.error(err);
+                } finally {
+                  setLoadingReset(false);
                 }
               }}
               className="flex flex-col gap-3"
@@ -183,9 +208,10 @@ export default function LoginClient() {
                 </button>
                 <button
                   type="submit"
+                  disabled={loadingReset} // NEW: disable button while loading
                   className="px-3 py-1 bg-green-600 text-white rounded cursor-pointer"
                 >
-                  Send Link
+                  {loadingReset ? "Sending..." : "Send Link"}
                 </button>
               </div>
             </form>
