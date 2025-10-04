@@ -9,7 +9,6 @@ import { useRouter, useSearchParams } from "next/navigation"; // Helps us change
 import { toast } from "sonner"; // Using the new Sonner toast – small popup messages
 import { useUser } from "@/page_components/UserProvider";
 import { supabaseBrowser } from "@/lib/supabase/client";
-import { altSupabaseClient } from "@/lib/supabase/alternateclient";
 
 export default function LoginClient() {
   // This handles form state (errors, loading, etc.)
@@ -167,13 +166,13 @@ export default function LoginClient() {
                     return;
                   }
 
-                  const altSupabase = altSupabaseClient();
-
                   // If user exists, send reset email
-                  const { error } =
-                    await altSupabase.auth.resetPasswordForEmail(resetEmail, {
-                      redirectTo: `https://ebukart.vercel.app/reset-forgotten-password`,
-                    });
+                  const { error } = await supabase.auth.resetPasswordForEmail(
+                    resetEmail,
+                    {
+                      redirectTo: `${process.env.NEXT_PUBLIC_BASE_URL}/reset-forgotten-password`,
+                    }
+                  );
 
                   if (error) {
                     toast.error(error.message);
