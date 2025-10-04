@@ -170,7 +170,7 @@ export default function LoginClient() {
                   const { error } = await supabase.auth.resetPasswordForEmail(
                     resetEmail,
                     {
-                      redirectTo: `${process.env.NEXT_PUBLIC_BASE_URL}/reset-forgotten-password`,
+                      redirectTo: `https://ebukart.vercel.app/reset-forgotten-password`,
                     }
                   );
 
